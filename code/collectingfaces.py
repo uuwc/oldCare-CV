@@ -18,7 +18,7 @@ import shutil
 import time
 
 # 全局参数
-audio_dir = '/home/uuwc/pythonProject/oldCare-CV/audios'
+audio_dir = '/home/ylg/old care/audios'
 
 # 控制参数
 error = 0
