@@ -3,8 +3,8 @@
 测试人脸识别模型
 
 用法：
-python testingfacerecognition.py
-python testingfacerecognition.py --filename room_01.mp4
+python testingfacialexpression.py
+python testingfacialexpression.py --filename room_01.mp4
 '''
 
 # import the necessary packages
