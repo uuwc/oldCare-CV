@@ -24,12 +24,12 @@ ap.add_argument("-f", "--filename", required=False, default='',
 args = vars(ap.parse_args())
 
 # 全局变量
-model_path = 'models/face_expression.hdf5'
+model_path = '/home/uuwc/pythonProject/models/face_expression.hdf5'
 input_video = args['filename']
 
 # 全局常量
-FACIAL_EXPRESSION_TARGET_WIDTH = 28
-FACIAL_EXPRESSION_TARGET_HEIGHT = 28
+FACIAL_EXPRESSION_TARGET_WIDTH = 32
+FACIAL_EXPRESSION_TARGET_HEIGHT = 32
 
 # load the face detector cascade and smile detector CNN
 model = load_model(model_path)
