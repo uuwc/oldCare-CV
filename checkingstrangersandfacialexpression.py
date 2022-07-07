@@ -54,7 +54,8 @@ VIDEO_HEIGHT = 480
 
 ANGLE = 20
 
-emotiondict = {'angry': '生气', 'disgusted': '厌恶', 'fearful': '害怕', 'happy': '开心', 'sad': '伤心', 'surprised': '惊讶'}
+emotiondict = {'angry': '生气', 'disgusted': '厌恶', 'fearful': '害怕', 'happy': '开心', 'sad': '伤心', 'surprised': '惊讶',
+               'neutral': '正常'}
 
 # 得到 ID->姓名的map 、 ID->职位类型的map、
 # 摄像头ID->摄像头名字的map、表情ID->表情名字的map
@@ -266,7 +267,7 @@ while True:
                                                cv2.COLOR_BGR2RGB))
 
         draw = ImageDraw.Draw(img_PIL)
-        final_label = id_card_to_name[name] + ': ' + facial_expression_id_to_name[
+        final_label = id_card_to_name[name] + ': ' + emotiondict[
             facial_expression_label] if facial_expression_label else id_card_to_name[name]
         draw.text((left, top - 30), final_label,
                   font=ImageFont.truetype('NotoSansCJK-Black.ttc', 40),
