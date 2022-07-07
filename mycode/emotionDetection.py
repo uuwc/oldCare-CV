@@ -82,7 +82,7 @@ print(train_generator.class_indices)
 
 model = tf.keras.models.Sequential([
 
-    tf.keras.layers.Conv2D(16, (5, 5), activation='relu', input_shape=(48, 48, 3), padding='same'),
+    tf.keras.layers.Conv2D(16, (5, 5), activation='relu', input_shape=(48, 48, 1), padding='same'),
     tf.keras.layers.MaxPooling2D(2, 2),
 
     tf.keras.layers.Conv2D(32, (5, 5), activation='relu', padding='same'),
@@ -101,7 +101,7 @@ model.summary()
 
 model.compile(loss='categorical_crossentropy', optimizer='Adam', metrics=['accuracy'])
 
-history = model.fit_generator(train_generator, epochs=100, validation_data=validation_generator, verbose=1)
+history = model.fit_generator(train_generator, epochs=20, validation_data=validation_generator, verbose=1)
 
 model.save('face(5).h5')
 
