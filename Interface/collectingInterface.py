@@ -7,21 +7,13 @@
 python collectingfaces.py --id 106 --imagedir /home/reed/git-project/old_care_system/任务源代码/任务5.老人员工义工人脸图像采集/images
 
 '''
-import argparse
-import os, base64
-# from mycode.oldcare.facial import FaceUtil
-# from mycode.oldcare.audio import audioplayer
+import base64
 import re
-
-from PIL import Image, ImageDraw, ImageFont
-import cv2
-import numpy as np
 import os
 import shutil
-import time
 
 # 全局参数
-imagedir = '/home/ylg/old care/images/facecollection'
+imagedir = './'
 
 # 控制参数
 error = 0
@@ -32,8 +24,19 @@ action_list = ['blink', 'open_mouth', 'smile', 'rise_head', 'bow_head',
                'look_left', 'look_right']
 
 
-def facecollecting(id, list):
-    # 新建目录
+
+def facecollecting(id, type, list):
+
+    if type == 'old_people':
+        id = '1_' + id
+    elif type == 'volunteer':
+        id = '2_' + id
+    elif type == 'employee':
+        id = '3_' + id
+    else:
+         pass
+
+    #新建目录
     if os.path.exists(os.path.join(imagedir, id)):
         shutil.rmtree(os.path.join(imagedir, id), True)
     os.mkdir(os.path.join(imagedir, id))
@@ -52,6 +55,10 @@ def facecollecting(id, list):
         i += 1
         # image_name = os.path.join(args['imagedir'], args['id'],
         #                       action + '_' + str(counter) + '.jpg')
+        file = open(os.path.join(imagedir, id)+'/' + str(i) + '.' + ext, 'wb')
+        file.write(imgdata)
+        file.close()
+        i += 1
 
 
 if __name__ == '__main__':

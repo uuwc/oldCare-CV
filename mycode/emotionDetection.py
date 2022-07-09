@@ -125,7 +125,7 @@ from tensorflow.keras.models import load_model
 model = load_model("face(5).h5")
 
 dataframe = pd.DataFrame(columns=['name', 'label'])
-os.chdir('./testxsy/')  # 原 D:\\python\\15、情绪识别
+os.chdir('./test/')  # 原 D:\\python\\15、情绪识别
 # test_num = 1
 for file_name in os.listdir():
     img = image.load_img(file_name, target_size=(48, 48))
