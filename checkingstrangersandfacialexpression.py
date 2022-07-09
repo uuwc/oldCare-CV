@@ -28,7 +28,7 @@ print('[INFO] %s 陌生人检测程序和表情检测程序启动了.' % (curren
 
 # 传入参数
 ap = argparse.ArgumentParser()
-ap.add_argument("-f", "--filename", required=False, default='',
+ap.addargument("-f", "--filename", required=False, default='',
                 help="")
 args = vars(ap.parse_args())
 input_video = args['filename']
@@ -43,7 +43,7 @@ output_smile_path = './supervision/smile'
 people_info_path = 'info/people_info.csv'
 facial_expression_info_path = 'info/facial_expression_info.csv'
 # your python path
-python_path = '/home/ylg/anaconda3/bin/python'
+python_path = '/home/uuwc/anaconda3/bin/python'
 
 # 全局常量
 FACIAL_EXPRESSION_TARGET_WIDTH = 48

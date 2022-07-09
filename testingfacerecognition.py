@@ -8,7 +8,7 @@ python testingfacialexpression.py --filename room_01.mp4
 '''
 
 # import the necessary packages
-from code.oldcare.facial.faceutildlib import FaceUtil
+from mycode.oldcare.facial.faceutildlib import FaceUtil
 import imutils
 import cv2
 import time

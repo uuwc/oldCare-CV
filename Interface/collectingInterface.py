@@ -34,7 +34,17 @@ action_list = ['blink', 'open_mouth', 'smile', 'rise_head', 'bow_head',
                'look_left', 'look_right']
 
 
-def facecollecting(id, list):
+def facecollecting(id, type, list):
+
+    if type == 'old_people':
+        id = '1_' + id
+    elif type == 'volunteer':
+        id = '2_' + id
+    elif type == 'employee':
+        id = '3_' + id
+    else:
+         pass
+
     #新建目录
     if os.path.exists(os.path.join(imagedir, id)):
         shutil.rmtree(os.path.join(imagedir, id), True)
