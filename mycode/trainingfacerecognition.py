@@ -10,8 +10,8 @@ from imutils import paths
 from oldcare.facial import FaceUtil
 
 # global variable
-dataset_path = '/home/ylg/old care/images'
-output_encoding_file_path = '/home/ylg/old care/models/face_recognition_hog.pickle'
+dataset_path = '/home/uuwc/pythonProject/images/106'
+output_encoding_file_path = '/home/uuwc/pythonProject/models/face_recognition_hog.pickle'
 
 # grab the paths to the input images in our dataset
 print("[INFO] quantifying faces...")
