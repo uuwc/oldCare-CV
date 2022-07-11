@@ -18,6 +18,7 @@ import imutils
 import numpy as np
 import argparse
 import subprocess
+import Communication
 
 # 传入参数
 ap = argparse.ArgumentParser()
@@ -194,10 +195,12 @@ while True:
                         os.path.join(output_activity_path, 'snapshot_%s.jpg' % (time.strftime('%Y%m%d_%H%M%S'))),
                         frame)  # snapshot
 
+                    Communication.insertevent("义工交互检测", event_desc,event_location, int(name))
                     # insert into database
-                    command = '%s inserting.py --event_desc %s --event_type 1 --event_location %s --old_people_id %d' % (
-                    python_path, event_desc, event_location, int(name))
-                    p = subprocess.Popen(command, shell=True)
+
+                    #command = '%s inserting.py --event_desc %s --event_type 1 --event_location %s --old_people_id %d' % (
+                    #python_path, event_desc, event_location, int(name))
+                    #p = subprocess.Popen(command, shell=True)
 
     # show our detected faces along with smiling/not smiling labels
     cv2.imshow("Checking Volunteer's Activities", frame)

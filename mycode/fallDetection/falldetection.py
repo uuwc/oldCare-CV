@@ -10,6 +10,7 @@ from modules.pose import Pose
 from action_detect.detect import action_detect
 import os
 from math import ceil, floor
+import Communication
 
 os.environ["PYTORCH_JIT"] = "0"
 
@@ -341,6 +342,10 @@ def detect_main(video_source='', image_source='', video_name=''):
                                   (pose.bbox[0] + pose.bbox[2], pose.bbox[1] + pose.bbox[3]), (0, 0, 255),thickness=3)
                     cv2.putText(img, 'state: {}'.format(pose.pose_action), (pose.bbox[0], pose.bbox[1] - 16),
                                 cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255))
+
+                    desc = "有人摔倒了"
+                    location = "走廊"
+                    Communication.insertevent("摔倒检查", desc, location, -1)
                 else:
                     cv2.rectangle(img, (pose.bbox[0], pose.bbox[1]),
                                   (pose.bbox[0] + pose.bbox[2], pose.bbox[1] + pose.bbox[3]), (0, 255, 0))
