@@ -125,7 +125,7 @@ nose==1.3.7
 notebook==6.0.3
 numba==0.50.1
 numexpr==2.7.1
-numpy==1.16.4
+numpy~=1.16.0
 numpydoc==1.1.0
 oauthlib==3.2.0
 olefile==0.46
@@ -134,7 +134,7 @@ opencv-python==3.4.4.19
 openpyxl==3.0.4
 opt-einsum==3.3.0
 packaging==20.4
-pandas==1.0.5
+pandas~=1.1.5
 pandocfilters==1.4.2
 parso==0.7.0
 partd==1.1.0
@@ -145,7 +145,7 @@ patsy==0.5.1
 pep8==1.7.1
 pexpect==4.8.0
 pickleshare==0.7.5
-Pillow==7.2.0
+Pillow~=8.4.0
 pip==21.3.1
 pkginfo==1.5.0.1
 pluggy==0.13.1
@@ -187,7 +187,7 @@ QtAwesome==0.7.2
 qtconsole==4.7.5
 QtPy==1.9.0
 regex==2020.6.8
-requests==2.24.0
+requests~=2.27.1
 requests-oauthlib==1.3.1
 rope==0.17.0
 rsa==4.8
@@ -195,7 +195,7 @@ Rtree==0.9.4
 ruamel_yaml==0.15.87
 scikit-image==0.16.2
 scikit-learn==0.23.1
-scipy==1.5.0
+scipy~=1.5.4
 seaborn==0.10.1
 SecretStorage==3.1.2
 Send2Trash==1.5.0
@@ -256,3 +256,5 @@ zict==2.0.0
 zipp==3.1.0
 zope.event==4.4
 zope.interface==4.7.1
+
+torch~=1.10.2

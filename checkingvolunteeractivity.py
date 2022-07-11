@@ -32,7 +32,7 @@ output_activity_path = 'supervision/activity'
 model_path = 'models/face_recognition_hog.pickle'
 people_info_path = 'info/people_info.csv'
 camera_turned = 0
-python_path = '/home/uuwc/anaconda3/envs/tensorflow/bin/python'  # your python path
+python_path = r'D:\Anaconda3\envs\tensorflow\python.exe'  # your python path
 
 # 全局常量
 FACE_ACTUAL_WIDTH = 20  # 单位厘米   姑且认为所有人的脸都是相同大小

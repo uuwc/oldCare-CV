@@ -18,7 +18,7 @@ import shutil
 import time
 
 # 全局参数
-audio_dir = '/home/uuwc/pythonProject/audios'
+audio_dir = r'D:\PythonProject\oldCare-CV\audios'
 
 # 控制参数
 error = 0
@@ -94,9 +94,9 @@ while True:
         pass
 
 # 新建目录
-if os.path.exists(os.path.join(args['imagedir'], args['id'])):
+if os.path.exists(os.path.join(args['imagedir'], args['id']).replace("\\", "//")):
     shutil.rmtree(os.path.join(args['imagedir'], args['id']), True)
-os.mkdir(os.path.join(args['imagedir'], args['id']))
+os.mkdir(os.path.join(args['imagedir'], args['id'].replace("\\", "//")))
 
 # 开始采集人脸
 for action in action_list:
@@ -120,7 +120,8 @@ for action in action_list:
 
         draw = ImageDraw.Draw(img_PIL)
         draw.text((int(image.shape[1] / 2), 30), action_name,
-                  font=ImageFont.truetype('NotoSansCJK-Black.ttc', 40),
+                  font=ImageFont.truetype(r'C:\Users\mi\Desktop\NotoSansCJKBlack.ttc', 40),
+                  #font=ImageFont.truetype('微软雅黑.ttf', 40),
                   fill=(255, 0, 0))  # linux
 
         # 转换回OpenCV格式

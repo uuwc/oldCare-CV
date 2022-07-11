@@ -4,21 +4,23 @@ import cv2
 import subprocess
 
 # 视频读取对象
-cap = cv2.VideoCapture("/home/uuwc/pythonProject/tests/room_04.avi")
-
+#cap = cv2.VideoCapture(r"D:\PythonProject\oldCare-CV\tests\room_04.avi")
+cap = cv2.VideoCapture(0)
 # 读取一帧
 ret, frame = cap.read()
 
 # 推流地址
-rtmp = "rtmp:http://39.105.102.68:7001/live/zj.flv"
-
+#rtmp = "rtmp://123.56.148.46:1935/live/rfBd56ti2SMtYvSgD5xAV0YU99zampta7Z7S575KLkIZ9PYk"
+rtmp = "rtmp://zrp.cool:1935/live/rfBd56ti2SMtYvSgD5xAV0YU99zampta7Z7S575KLkIZ9PYk"
 # 推流参数
 command = ['ffmpeg',
            '-y',
+           #'-re',
+           # '-thread_queue_size', '512'
            '-f', 'rawvideo',
            '-vcodec', 'rawvideo',
            '-pix_fmt', 'bgr24',
-           '-s', '720*560',  # 根据输入视频尺寸填写
+           '-s', '640*480',  # 根据输入视频尺寸填写
            '-r', '25',
            '-i', '-',
            '-c:v', 'h264',
@@ -56,4 +58,3 @@ cv2.destroyAllWindows()
 
 # 停止读取
 cap.release()
-

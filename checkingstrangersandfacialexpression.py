@@ -13,7 +13,7 @@ from mycode.oldcare.facial import FaceUtil
 from PIL import Image, ImageDraw, ImageFont
 from mycode.oldcare.utils import fileassistant
 from tensorflow.keras.models import load_model
-from keras.preprocessing.image import img_to_array
+from tensorflow.keras.preprocessing.image import img_to_array
 import cv2
 import time
 import numpy as np
@@ -28,7 +28,7 @@ print('[INFO] %s 陌生人检测程序和表情检测程序启动了.' % (curren
 
 # 传入参数
 ap = argparse.ArgumentParser()
-ap.addargument("-f", "--filename", required=False, default='',
+ap.add_argument("-f", "--filename", required=False, default='',
                 help="")
 args = vars(ap.parse_args())
 input_video = args['filename']
@@ -43,7 +43,7 @@ output_smile_path = './supervision/smile'
 people_info_path = 'info/people_info.csv'
 facial_expression_info_path = 'info/facial_expression_info.csv'
 # your python path
-python_path = '/home/uuwc/anaconda3/bin/python'
+python_path = r'D:\Anaconda3\envs\tensorflow\python.exe'
 
 # 全局常量
 FACIAL_EXPRESSION_TARGET_WIDTH = 48
@@ -270,7 +270,8 @@ while True:
         final_label = id_card_to_name[name] + ': ' + emotiondict[
             facial_expression_label] if facial_expression_label else id_card_to_name[name]
         draw.text((left, top - 30), final_label,
-                  font=ImageFont.truetype('NotoSansCJK-Black.ttc', 40),
+                  # font=ImageFont.truetype('NotoSansCJK-Black.ttc', 40),
+                  font=ImageFont.truetype(r'C:\Users\mi\Desktop\NotoSansCJKBlack.ttc', 40),
                   fill=(255, 0, 0))  # linux
 
         # 转换回OpenCV格式

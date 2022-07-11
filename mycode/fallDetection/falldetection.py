@@ -332,7 +332,7 @@ def detect_main(video_source='', image_source='', video_name=''):
 
 
             for pose in current_poses:
-                pose.img_pose = pose.draw(img,show_draw=True)
+                pose.img_pose = pose.draw(img, show_draw=True)
                 crown_proportion = pose.bbox[2]/pose.bbox[3] #宽高比
                 pose = action_detect(action_net,pose,crown_proportion)
 
@@ -374,7 +374,7 @@ def detect_main(video_source='', image_source='', video_name=''):
 
 
 if __name__ == '__main__':
-    # detect_main(video_source=r'C:\Users\lieweiai\Desktop\185eaf21bf45a652eb354dc5bb6792de.mp4',video_name='video1')
+    # detect_main(video_source=r'C:\Users\mi\Desktop\corridor_02.avi', video_name='video1')
     detect_main(video_source='0')
     # detect_main(image_source='/home/uuwc/fallDetection/3.png')
     # detect_main()

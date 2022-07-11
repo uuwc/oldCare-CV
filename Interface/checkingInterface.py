@@ -5,7 +5,7 @@ from mycode.oldcare.facial import FaceUtil
 from PIL import Image, ImageDraw, ImageFont
 from mycode.oldcare.utils import fileassistant
 from tensorflow.keras.models import load_model
-from keras.preprocessing.image import img_to_array
+from tensorflow.keras.preprocessing.image import img_to_array
 import time
 import numpy as np
 import os

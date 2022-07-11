@@ -21,7 +21,7 @@ ap.add_argument("-f", "--filename", required=False, default = '',
 args = vars(ap.parse_args())
 
 # 全局变量
-facial_recognition_model_path = '/home/uuwc/pythonProject/models/face_recognition_hog.pickle'
+facial_recognition_model_path = r'D:\PythonProject\oldCare-CV\models\face_recognition_hog.pickle'
 input_video = args['filename']
 
 
