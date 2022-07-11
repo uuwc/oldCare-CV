@@ -20,6 +20,7 @@ import numpy as np
 import os
 import imutils
 import subprocess
+import Communication
 
 # 得到当前时间
 current_time = time.strftime('%Y-%m-%d %H:%M:%S',
@@ -166,10 +167,11 @@ while True:
                     cv2.imwrite(os.path.join(output_stranger_path,
                                              'snapshot_%s.jpg' % (time.strftime('%Y%m%d_%H%M%S'))), frame)  # snapshot
 
+                    Communication.insertevent("陌生人检测", event_desc, event_location, -1)
                     # insert into database
-                    command = '%s inserting.py --event_desc %s --event_type 2 --event_location %s' % (
-                        python_path, event_desc, event_location)
-                    p = subprocess.Popen(command, shell=True)
+                    #command = '%s inserting.py --event_desc %s --event_type 2 --event_location %s' % (
+                    #    python_path, event_desc, event_location)
+                    #p = subprocess.Popen(command, shell=True)
 
                     # 开始陌生人追踪
                     unknown_face_center = (int((right + left) / 2),
@@ -250,10 +252,11 @@ while True:
                                                  'snapshot_%s.jpg' % (time.strftime('%Y%m%d_%H%M%S'))),
                                     frame)  # snapshot
 
+                        Communication.insertevent("情感检测", event_desc, event_location, int(name))
                         # insert into database
-                        command = '%s inserting.py --event_desc %s --event_type 0 --event_location %s --old_people_id %d' % (
-                            python_path, event_desc, event_location, int(name))
-                        p = subprocess.Popen(command, shell=True)
+                        #command = '%s inserting.py --event_desc %s --event_type 0 --event_location %s --old_people_id %d' % (
+                         #   python_path, event_desc, event_location, int(name))
+                        #p = subprocess.Popen(command, shell=True)
 
             else:  # everything is ok
                 facial_expression_timing = 0

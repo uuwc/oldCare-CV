@@ -21,6 +21,7 @@ import dlib
 import cv2
 import os
 import subprocess
+import Communication
 
 # 得到当前时间
 current_time = time.strftime('%Y-%m-%d %H:%M:%S',
@@ -246,10 +247,12 @@ while True:
                     cv2.imwrite(os.path.join(output_fence_path, 'snapshot_%s.jpg' % (time.strftime('%Y%m%d_%H%M%S'))),
                                 frame)  # snapshot
 
+
+                    Communication.insertevent("禁止区域入侵检测", event_desc, event_location, -1)
                     # insert into database
-                    command = '%s inserting.py --event_desc %s --event_type 4 --event_location %s' % (
-                    python_path, event_desc, event_location)
-                    p = subprocess.Popen(command, shell=True)
+                    #command = '%s inserting.py --event_desc %s --event_type 4 --event_location %s' % (
+                    #python_path, event_desc, event_location)
+                    #p = subprocess.Popen(command, shell=True)
 
                 # store the trackable object in our dictionary
         trackableObjects[objectID] = to
