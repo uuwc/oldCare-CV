@@ -31,7 +31,7 @@ input_video = args['filename']
 FACIAL_EXPRESSION_TARGET_WIDTH = 32
 FACIAL_EXPRESSION_TARGET_HEIGHT = 32
 
-# load the face detector cascade and smile detector CNN
+# load the face detector cascade and emotion detector CNN
 model = load_model(model_path)
 
 # if a video path was not supplied, grab the reference to the webcam

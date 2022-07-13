@@ -4,7 +4,7 @@
 由于外部程序需要调用它，所以不能使用相对路径
 
 用法：
-python collectingfaces.py --id 106 --imagedir /home/reed/git-project/old_care_system/任务源代码/任务5.老人员工义工人脸图像采集/images
+python collectingfaces.py --id 1 --imagedir /home/reed/git-project/old_care_system/任务源代码/任务5.老人员工义工人脸图像采集/images
 
 '''
 import argparse
@@ -23,7 +23,7 @@ audio_dir = r'D:\PythonProject\oldCare-CV\audios'
 # 控制参数
 error = 0
 start_time = None
-limit_time = 2  # 2 秒
+limit_time = 2  # 1 秒
 
 # 传入参数
 ap = argparse.ArgumentParser()
@@ -33,14 +33,14 @@ ap.add_argument("-id", "--imagedir", required=True,
                 help="")
 args = vars(ap.parse_args())
 
-action_list = ['blink', 'open_mouth', 'smile', 'rise_head', 'bow_head',
+action_list = ['blink', 'open_mouth', 'emotion', 'rise_head', 'bow_head',
                'look_left', 'look_right']
 action_map = {'blink': '请眨眼', 'open_mouth': '请张嘴',
-              'smile': '请笑一笑', 'rise_head': '请抬头',
+              'emotion': '请笑一笑', 'rise_head': '请抬头',
               'bow_head': '请低头', 'look_left': '请看左边',
               'look_right': '请看右边'}
 # 设置摄像头
-cam = cv2.VideoCapture(0)
+cam = cv2.VideoCapture("http://zrp.cool:7001/live/movie.flv")
 cam.set(3, 640)  # set video widht
 cam.set(4, 480)  # set video height
 
@@ -96,7 +96,7 @@ while True:
 # 新建目录
 if os.path.exists(os.path.join(args['imagedir'], args['id']).replace("\\", "//")):
     shutil.rmtree(os.path.join(args['imagedir'], args['id']), True)
-os.mkdir(os.path.join(args['imagedir'], args['id'].replace("\\", "//")))
+os.mkdir(os.path.join(args['imagedir'], args['id']).replace("\\", "//"))
 
 # 开始采集人脸
 for action in action_list:

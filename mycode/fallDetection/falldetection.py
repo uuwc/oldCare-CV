@@ -1,16 +1,14 @@
 import argparse
 import time
-from threading import Thread
 
 import cv2
 import numpy as np
-from torch import from_numpy, jit
+from torch import jit
 from modules.keypoints import extract_keypoints, group_keypoints
 from modules.pose import Pose
 from action_detect.detect import action_detect
 import os
-from math import ceil, floor
-import Communication
+from Interface import Communication
 
 os.environ["PYTORCH_JIT"] = "0"
 
@@ -68,7 +66,7 @@ class VideoReader(object):
 #     # 初始化摄像头
 #     if not input_video:
 #         vs = cv2.VideoCapture(0)
-#         time.sleep(2)
+#         time.sleep(1)
 #     else:
 #         vs = cv2.VideoCapture(input_video)
 #
@@ -82,55 +80,55 @@ class VideoReader(object):
 #             break
 #         run_demo(net, action_net, frame, args.height_size, args.cpu)
 
-def normalize(img, img_mean, img_scale):
-    img = np.array(img, dtype=np.float32)
-    img = (img - img_mean) * img_scale
-    return img
-
-
-def pad_width(img, stride, pad_value, min_dims):
-    h, w, _ = img.shape
-    h = min(min_dims[0], h)
-    min_dims[0] = ceil(min_dims[0] / float(stride)) * stride
-    min_dims[1] = max(min_dims[1], w)
-    min_dims[1] = ceil(min_dims[1] / float(stride)) * stride
-    pad = []
-    pad.append(int(floor((min_dims[0] - h) / 2.0)))
-    pad.append(int(floor((min_dims[1] - w) / 2.0)))
-    pad.append(int(min_dims[0] - h - pad[0]))
-    pad.append(int(min_dims[1] - w - pad[1]))
-    padded_img = cv2.copyMakeBorder(img, pad[0], pad[2], pad[1], pad[3],
-                                    cv2.BORDER_CONSTANT, value=pad_value)
-    return padded_img, pad
-
-
-def infer_fast(net, img, net_input_height_size, stride, upsample_ratio, cpu,
-               pad_value=(0, 0, 0), img_mean=(128, 128, 128), img_scale=1 / 256):
-    height, width, _ = img.shape
-    scale = net_input_height_size / height
-
-    scaled_img = cv2.resize(img, (0, 0), fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC)
-    scaled_img = normalize(scaled_img, img_mean, img_scale)
-    min_dims = [net_input_height_size, max(scaled_img.shape[1], net_input_height_size)]
-    padded_img, pad = pad_width(scaled_img, stride, pad_value, min_dims)
-
-    tensor_img = from_numpy(padded_img).permute(2, 0, 1).unsqueeze(0).float()
-    # if not cpu:
-    #     tensor_img = tensor_img.cuda()
-
-    stages_output = net(tensor_img)
-
-    # print(stages_output)
-
-    stage2_heatmaps = stages_output[-2]
-    heatmaps = np.transpose(stage2_heatmaps.squeeze().cpu().data.numpy(), (1, 2, 0))
-    heatmaps = cv2.resize(heatmaps, (0, 0), fx=upsample_ratio, fy=upsample_ratio, interpolation=cv2.INTER_CUBIC)
-
-    stage2_pafs = stages_output[-1]
-    pafs = np.transpose(stage2_pafs.squeeze().cpu().data.numpy(), (1, 2, 0))
-    pafs = cv2.resize(pafs, (0, 0), fx=upsample_ratio, fy=upsample_ratio, interpolation=cv2.INTER_CUBIC)
-
-    return heatmaps, pafs, scale, pad
+# def normalize(img, img_mean, img_scale):
+#     img = np.array(img, dtype=np.float32)
+#     img = (img - img_mean) * img_scale
+#     return img
+#
+#
+# def pad_width(img, stride, pad_value, min_dims):
+#     h, w, _ = img.shape
+#     h = min(min_dims[0], h)
+#     min_dims[0] = ceil(min_dims[0] / float(stride)) * stride
+#     min_dims[1] = max(min_dims[1], w)
+#     min_dims[1] = ceil(min_dims[1] / float(stride)) * stride
+#     pad = []
+#     pad.append(int(floor((min_dims[0] - h) / 2.0)))
+#     pad.append(int(floor((min_dims[1] - w) / 2.0)))
+#     pad.append(int(min_dims[0] - h - pad[0]))
+#     pad.append(int(min_dims[1] - w - pad[1]))
+#     padded_img = cv2.copyMakeBorder(img, pad[0], pad[2], pad[1], pad[3],
+#                                     cv2.BORDER_CONSTANT, value=pad_value)
+#     return padded_img, pad
+#
+#
+# def infer_fast(net, img, net_input_height_size, stride, upsample_ratio, cpu,
+#                pad_value=(0, 0, 0), img_mean=(128, 128, 128), img_scale=1 / 256):
+#     height, width, _ = img.shape
+#     scale = net_input_height_size / height
+#
+#     scaled_img = cv2.resize(img, (0, 0), fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC)
+#     scaled_img = normalize(scaled_img, img_mean, img_scale)
+#     min_dims = [net_input_height_size, max(scaled_img.shape[1], net_input_height_size)]
+#     padded_img, pad = pad_width(scaled_img, stride, pad_value, min_dims)
+#
+#     tensor_img = from_numpy(padded_img).permute(2, 0, 1).unsqueeze(0).float()
+#     # if not cpu:
+#     #     tensor_img = tensor_img.cuda()
+#
+#     stages_output = net(tensor_img)
+#
+#     # print(stages_output)
+#
+#     stage2_heatmaps = stages_output[-2]
+#     heatmaps = np.transpose(stage2_heatmaps.squeeze().cpu().data.numpy(), (1, 2, 0))
+#     heatmaps = cv2.resize(heatmaps, (0, 0), fx=upsample_ratio, fy=upsample_ratio, interpolation=cv2.INTER_CUBIC)
+#
+#     stage2_pafs = stages_output[-1]
+#     pafs = np.transpose(stage2_pafs.squeeze().cpu().data.numpy(), (1, 2, 0))
+#     pafs = cv2.resize(pafs, (0, 0), fx=upsample_ratio, fy=upsample_ratio, interpolation=cv2.INTER_CUBIC)
+#
+#     return heatmaps, pafs, scale, pad
 
 
 def run_demo(net, action_net, image_provider, height_size, cpu):
@@ -163,7 +161,7 @@ def run_demo(net, action_net, image_provider, height_size, cpu):
     #         for n in range(len(pose_entries)):
     #             if len(pose_entries[n]) == 0:
     #                 continue
-    #             pose_keypoints = np.ones((num_keypoints, 2), dtype=np.int32) * -1
+    #             pose_keypoints = np.ones((num_keypoints, 1), dtype=np.int32) * -1
     #             for kpt_id in range(num_keypoints):
     #                 if pose_entries[n][kpt_id] != -1.0:  # keypoint was found
     #                     pose_keypoints[kpt_id, 0] = int(all_keypoints[int(pose_entries[n][kpt_id]), 0])
@@ -176,17 +174,17 @@ def run_demo(net, action_net, image_provider, height_size, cpu):
     #
     #         for pose in current_poses:
     #             pose.img_pose = pose.draw(img,show_draw=True)
-    #             crown_proportion = pose.bbox[2]/pose.bbox[3] #宽高比
+    #             crown_proportion = pose.bbox[1]/pose.bbox[3] #宽高比
     #             pose = action_detect(action_net,pose,crown_proportion)
     #
     #             if pose.pose_action == 'fall':
     #                 cv2.rectangle(img, (pose.bbox[0], pose.bbox[1]),
-    #                               (pose.bbox[0] + pose.bbox[2], pose.bbox[1] + pose.bbox[3]), (0, 0, 255),thickness=3)
+    #                               (pose.bbox[0] + pose.bbox[1], pose.bbox[1] + pose.bbox[3]), (0, 0, 255),thickness=3)
     #                 cv2.putText(img, 'state: {}'.format(pose.pose_action), (pose.bbox[0], pose.bbox[1] - 16),
     #                             cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 0, 255))
     #             else:
     #                 cv2.rectangle(img, (pose.bbox[0], pose.bbox[1]),
-    #                               (pose.bbox[0] + pose.bbox[2], pose.bbox[1] + pose.bbox[3]), (0, 255, 0))
+    #                               (pose.bbox[0] + pose.bbox[1], pose.bbox[1] + pose.bbox[3]), (0, 255, 0))
     #                 cv2.putText(img, 'state: {}'.format(pose.pose_action), (pose.bbox[0], pose.bbox[1] - 16),
     #                             cv2.FONT_HERSHEY_COMPLEX, 0.5, (0, 255, 0))
     #

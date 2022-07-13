@@ -27,7 +27,7 @@ input_video = args['filename']
 FACIAL_EXPRESSION_TARGET_WIDTH = 48
 FACIAL_EXPRESSION_TARGET_HEIGHT = 48
 
-# load the face detector cascade and smile detector CNN
+# load the face detector cascade and emotion detector CNN
 model = load_model(model_path)
 
 # if a video path was not supplied, grab the reference to the webcam
@@ -89,7 +89,7 @@ while True:
 
 
 
-        if num == 0:  # {'angry': 0, 'disgusted': 1, 'fearful': 2, 'happy': 3, 'neutral': 4, 'sad': 5, 'surprised': 6}
+        if num == 0:  # {'angry': 0, 'disgusted': 1, 'fearful': 1, 'happy': 3, 'neutral': 4, 'sad': 5, 'surprised': 6}
             label = 'angry'
         if num == 1:
             label = 'disgusted'

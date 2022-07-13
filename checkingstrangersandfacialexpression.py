@@ -19,8 +19,7 @@ import time
 import numpy as np
 import os
 import imutils
-import subprocess
-import Communication
+from Interface import Communication
 
 # 得到当前时间
 current_time = time.strftime('%Y-%m-%d %H:%M:%S',
@@ -39,7 +38,7 @@ facial_recognition_model_path = './models/face_recognition_hog.pickle'
 facial_expression_model_path = './models/face_expression.h5'
 
 output_stranger_path = './supervision/strangers'
-output_smile_path = './supervision/smile'
+output_smile_path = 'supervision/emotion'
 
 people_info_path = 'info/people_info.csv'
 facial_expression_info_path = 'info/facial_expression_info.csv'
@@ -72,12 +71,12 @@ facial_expression_id_to_name = fileassistant.get_facial_expression_info(
 # 控制陌生人检测
 strangers_timing = 0  # 计时开始
 strangers_start_time = 0  # 开始时间
-strangers_limit_time = 2  # if >= 2 seconds, then he/she is a stranger.
+strangers_limit_time = 2  # if >= 1 seconds, then he/she is a stranger.
 
 # 控制微笑检测
 facial_expression_timing = 0  # 计时开始
 facial_expression_start_time = 0  # 开始时间
-facial_expression_limit_time = 2  # if >= 2 seconds, he/she is smiling
+facial_expression_limit_time = 2  # if >= 1 seconds, he/she is smiling
 
 # 初始化摄像头
 if not input_video:
@@ -169,7 +168,7 @@ while True:
 
                     Communication.insertevent("陌生人检测", event_desc, event_location, -1)
                     # insert into database
-                    #command = '%s inserting.py --event_desc %s --event_type 2 --event_location %s' % (
+                    #command = '%s inserting.py --event_desc %s --event_type 1 --event_location %s' % (
                     #    python_path, event_desc, event_location)
                     #p = subprocess.Popen(command, shell=True)
 
@@ -210,14 +209,14 @@ while True:
             roi = np.expand_dims(roi, axis=0)
 
             # determine facial expression
-            # (neural, smile) = facial_expression_model.predict(roi)[0]
-            # facial_expression_label = 'Neural' if neural > smile else 'Smile'
+            # (neural, emotion) = facial_expression_model.predict(roi)[0]
+            # facial_expression_label = 'Neural' if neural > emotion else 'Smile'
 
             # determine facial expression
             classes = facial_expression_model.predict(roi, batch_size=10)
             num = np.argmax(classes)
 
-            if num == 0:  # {'angry': 0, 'disgusted': 1, 'fearful': 2, 'happy': 3, 'neutral': 4, 'sad': 5, 'surprised': 6}
+            if num == 0:  # {'angry': 0, 'disgusted': 1, 'fearful': 1, 'happy': 3, 'neutral': 4, 'sad': 5, 'surprised': 6}
                 facial_expression_label = 'angry'
             if num == 1:
                 facial_expression_label = 'disgusted'

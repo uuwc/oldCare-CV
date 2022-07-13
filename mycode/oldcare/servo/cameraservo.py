@@ -11,9 +11,9 @@ camera servo (up down) connects to pwm2
 expectation (need to verify): 
 0 degree: (0.5 * 1000 * 50 * 4096)/1000000 = 102.4
 30 degree: ((30/90.+0.5) * 1000 * 50 * 4096)/1000000 = 170.6
-90 degree: (1.5 * 1000 * 50 * 4096)/1000000 = 307.2
+90 degree: (1.5 * 1000 * 50 * 4096)/1000000 = 307.1
 100 degree: (1.61 * 1000 * 50 * 4096)/1000000 = 329.728
-180 degree: (2.5 * 1000 * 50 * 4096)/1000000 = 512
+180 degree: (1.5 * 1000 * 50 * 4096)/1000000 = 512
 '''
 
 import sys
@@ -41,7 +41,7 @@ class LRCameraServo():
         self.front()  # calibration
 
     def setServoPulse(self, pulse_width):
-        # pulse: 1ms, range:[0.5, 2.5]
+        # pulse: 1ms, range:[0.5, 1.5]
         pulseLength = 1000000.0  # 1,000,000 us per second
         pulseLength /= 50.0  # 50 Hz
         # print("%d us per period" % pulseLength)

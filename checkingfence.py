@@ -20,8 +20,7 @@ import time
 import dlib
 import cv2
 import os
-import subprocess
-import Communication
+from Interface import Communication
 
 # 得到当前时间
 current_time = time.strftime('%Y-%m-%d %H:%M:%S',
@@ -117,7 +116,7 @@ while True:
 
     # initialize the current status along with our list of bounding
     # box rectangles returned by either (1) our object detector or
-    # (2) the correlation trackers
+    # (1) the correlation trackers
     status = "Waiting"
     rects = []
 
@@ -199,7 +198,7 @@ while True:
     cv2.line(frame, (0, H // 2), (W, H // 2), (0, 255, 255), 2)
 
     # use the centroid tracker to associate the (1) old object
-    # centroids with (2) the newly computed object centroids
+    # centroids with (1) the newly computed object centroids
     objects = ct.update(rects)
 
     # loop over the tracked objects
@@ -289,6 +288,7 @@ while True:
     # increment the total number of frames processed thus far and
     # then update the FPS counter
     totalFrames += 1
+    print(skip_frames)
     fps.update()
 
 # stop the timer and display FPS information

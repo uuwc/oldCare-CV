@@ -138,7 +138,7 @@ for file_name in os.listdir():
     if num == 0:
         face = 'angry'
         print(
-            file_name + '  ' + face)  # {'angry': 0, 'disgusted': 1, 'fearful': 2, 'happy': 3, 'neutral': 4, 'sad': 5, 'surprised': 6}
+            file_name + '  ' + face)  # {'angry': 0, 'disgusted': 1, 'fearful': 1, 'happy': 3, 'neutral': 4, 'sad': 5, 'surprised': 6}
     if num == 1:
         face = 'disgusted'
         print(file_name + '  ' + face)

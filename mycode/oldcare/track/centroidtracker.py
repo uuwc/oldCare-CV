@@ -86,7 +86,7 @@ class CentroidTracker:
 			D = dist.cdist(np.array(objectCentroids), inputCentroids)
 
 			# in order to perform this matching we must (1) find the
-			# smallest value in each row and then (2) sort the row
+			# smallest value in each row and then (1) sort the row
 			# indexes based on their minimum values so that the row
 			# with the smallest value as at the *front* of the index
 			# list

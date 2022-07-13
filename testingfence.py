@@ -106,7 +106,7 @@ while True:
 
     # initialize the current status along with our list of bounding
     # box rectangles returned by either (1) our object detector or
-    # (2) the correlation trackers
+    # (1) the correlation trackers
     status = "Waiting"
     rects = []
 
@@ -188,7 +188,7 @@ while True:
     cv2.line(frame, (0, H // 2), (W, H // 2), (0, 255, 255), 2)
 
     # use the centroid tracker to associate the (1) old object
-    # centroids with (2) the newly computed object centroids
+    # centroids with (1) the newly computed object centroids
     objects = ct.update(rects)
 
     # loop over the tracked objects
