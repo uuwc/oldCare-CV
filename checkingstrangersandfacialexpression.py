@@ -131,7 +131,6 @@ while True:
     # 处理每一张识别到的人脸
     for ((left, top, right, bottom), name) in zip(face_location_list,
                                                   names):
-
         # 将人脸框出来
         rectangle_color = (0, 0, 255)
         if id_card_to_type[name] == 'old_people':
@@ -198,6 +197,7 @@ while True:
         # 表情检测逻辑
         # 如果不是陌生人，且对象是老人
         if name != 'Unknown' and id_card_to_type[name] == 'old_people':
+
             # 表情检测逻辑
             # roi = gray[top:bottom, left:right]
 
@@ -252,6 +252,7 @@ while True:
                                     frame)  # snapshot
 
                         Communication.insertevent("情感检测", event_desc, event_location, int(name))
+
                         # insert into database
                         #command = '%s inserting.py --event_desc %s --event_type 0 --event_location %s --old_people_id %d' % (
                          #   python_path, event_desc, event_location, int(name))

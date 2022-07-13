@@ -54,6 +54,22 @@ command = ['ffmpeg',
            '-preset', 'ultrafast',
            '-f', 'flv']
 
+# command = ['ffmpeg',
+#            '-y',
+#            '-re',
+#            # '-thread_queue_size', '512'
+#            '-f', 'rawvideo',
+#            '-vcodec', 'rawvideo',
+#            '-pix_fmt', 'bgr24',
+#            '-s', '640*480',  # 根据输入视频尺寸填写
+#            '-r', '25',
+#            '-i', '-',
+#            '-c:v', 'h264',
+#            '-pix_fmt', 'yuv420p',
+#            '-preset', 'ultrafast',
+#            '-f', 'flv',
+#            rtmp1]
+
 def getRTMP():
     r1 = requests.get('http://zrp.cool:8090/control/get?room=movie_01')
     r2 = requests.get('http://zrp.cool:8090/control/get?room=movie_02')
@@ -81,7 +97,7 @@ def checkstrangerthread():
     command1.append(rtmp[0])
     print("11111")
     vs1 = cv2.VideoCapture(0)
-    pipe = subprocess.Popen(command, stdin=subprocess.PIPE)
+    pipe = subprocess.Popen(command1, stdin=subprocess.PIPE)
     size = (int(vs1.get(cv2.CAP_PROP_FRAME_WIDTH)), int(vs1.get(cv2.CAP_PROP_FRAME_HEIGHT)))
     fps = vs1.get(cv2.CAP_PROP_FPS)
     out = cv2.VideoWriter('./supervision/records/room_%s' % (time.strftime('%Y%m%d_%H%M%S')) + '.avi', fourcc, 3.0, size)
@@ -110,7 +126,7 @@ def checkvolunteerthread():
     command2.append(rtmp[1])
     print("22222")
     vs2 = cv2.VideoCapture(0)
-    pipe = subprocess.Popen(command, stdin=subprocess.PIPE)
+    pipe = subprocess.Popen(command2, stdin=subprocess.PIPE)
     size = (int(vs2.get(cv2.CAP_PROP_FRAME_WIDTH)), int(vs2.get(cv2.CAP_PROP_FRAME_HEIGHT)))
     out = cv2.VideoWriter('./supervision/records/room_%s' % (time.strftime('%Y%m%d_%H%M%S')) + '.avi', fourcc, 3.0, size)
     while True:
@@ -138,7 +154,7 @@ def checkfallthread():
     command3.append(rtmp[2])
     print("33333")
     vs3 = cv2.VideoCapture(0)
-    pipe = subprocess.Popen(command, stdin=subprocess.PIPE)
+    pipe = subprocess.Popen(command3, stdin=subprocess.PIPE)
     size = (int(vs3.get(cv2.CAP_PROP_FRAME_WIDTH)), int(vs3.get(cv2.CAP_PROP_FRAME_HEIGHT)))
     out = cv2.VideoWriter('./supervision/records/room_%s' % (time.strftime('%Y%m%d_%H%M%S')) + '.avi', fourcc, 3.0, size)
     while True:
@@ -166,7 +182,7 @@ def checkfencethread():
     command4.append(rtmp[3])
     print("44444")
     vs4 = cv2.VideoCapture(0)
-    pipe = subprocess.Popen(command, stdin=subprocess.PIPE)
+    pipe = subprocess.Popen(command4, stdin=subprocess.PIPE)
     size = (int(vs4.get(cv2.CAP_PROP_FRAME_WIDTH)), int(vs4.get(cv2.CAP_PROP_FRAME_HEIGHT)))
     out = cv2.VideoWriter('./supervision/records/room_%s' % (time.strftime('%Y%m%d_%H%M%S')) + '.avi', fourcc, 3.0, size)
     fps = FPS().start()
@@ -207,13 +223,15 @@ if __name__ == '__main__':
     # t4 = t.Thread(target=checkfencethread)
 
     t1.start()
-    # t2.start()
-    # t3.start()
-    # t4.start()
-
     t1.join()
+
+    # t2.start()
     # t2.join()
+
+    # t3.start()
     # t3.join()
+
+    # t4.start()
     # t4.join()
 
 

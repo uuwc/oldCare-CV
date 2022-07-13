@@ -214,6 +214,7 @@ def checkingfence(grabbed, frame, net, fps):
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
 
     totalFrames += 1
+
     fps.update()
     return frame
 

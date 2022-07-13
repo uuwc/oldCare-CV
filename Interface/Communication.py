@@ -15,7 +15,13 @@ url="http://39.105.102.68:8000/oldcare/event/"
 
 
 
-def insertevent(type, event_desc, event_location, oldid):
+def insertevent(type, event_desc, event_location, old_id):
+    # print("zj2222")
+    # print(oldid)
+    # print(str(oldid))
+    # print(str(oldid)[1:])
+    # print(int(str(oldid)[1:]))
+    oldid = int(str(old_id)[1:])
     payload = {
         'event_type': type,
         'event_location': event_location,
@@ -68,13 +74,13 @@ def getpeople():
     employee = json.loads(r.text).get('employee')
     print(volunteer)
     for p in old:
-        writer.writerow(['1_' + str(p['id']), p['username'], "old_people"])
+        writer.writerow(['1' + str(p['id']), p['username'], "old_people"])
         #saveimage(p, '1_'+pid, "old_people", writer)
     for p in volunteer:
-        writer.writerow(['2_' + str(p['id']), p['username'], "volunteer"])
+        writer.writerow(['2' + str(p['id']), p['username'], "volunteer"])
         #saveimage(p, '2_'+pid, "volunteer", writer)
     for p in employee:
-        writer.writerow(['3_' + str(p['id']), p['username'], "employee"])
+        writer.writerow(['3' + str(p['id']), p['username'], "employee"])
         #saveimage(p, '3_'+pid, "employee", writer)
 
 if __name__ == '__main__':

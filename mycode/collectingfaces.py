@@ -33,14 +33,14 @@ ap.add_argument("-id", "--imagedir", required=True,
                 help="")
 args = vars(ap.parse_args())
 
-action_list = ['blink', 'open_mouth', 'emotion', 'rise_head', 'bow_head',
+action_list = ['blink', 'open_mouth', 'smile', 'rise_head', 'bow_head',
                'look_left', 'look_right']
 action_map = {'blink': '请眨眼', 'open_mouth': '请张嘴',
-              'emotion': '请笑一笑', 'rise_head': '请抬头',
+              'smile': '请笑一笑', 'rise_head': '请抬头',
               'bow_head': '请低头', 'look_left': '请看左边',
               'look_right': '请看右边'}
 # 设置摄像头
-cam = cv2.VideoCapture("http://zrp.cool:7001/live/movie.flv")
+cam = cv2.VideoCapture(0)
 cam.set(3, 640)  # set video widht
 cam.set(4, 480)  # set video height
 
